@@ -23,22 +23,38 @@ def get_article_links ()
 end
 
 # extracts stock recommendations from an article, if possible (table.instrumentSummaryDetails has info)
-def extract_stock_recommendations (url)
-	document = fetch_url_body(url)
-	summary = document.css('table.instrumentSummaryDetails tbody tr') # a.children.first.text => stock name
-	i = 0
-	while i < 20
-		stocks = summary.css('a').children[i].text
-		advice = summary.css('td.tRight.plcPositive').children[i].text
-		
-		i += 1
+def extract_stock_recommendations (article)
+	document = fetch_url_body(article.getUrl())
+	document.css('table.instrumentSummaryDetails tbody tr').each do |row|
+		st_name = row.css('a').children.first.text
+		st_advice = row.css('td.tRight.plcPositive').children.first.text
+		article.add_stock_recommendation(st_name, st_advice)
 	end
-	#p stocks
 end
 
-test = 'https://www.placera.se/placera/redaktionellt/2023/12/29/sexton-kopvarda-aktier-i-januari.html'
+# finds stocks that where recommended by more than one article
+def find_intersections (articles)
+	intersections = []
+	i = 0
+	while i < articles.length
+		articles[i].get_stock_recommendations.each do |stock|
+			j = i + 1
+			while j < articles.length
+				if articles[j].get_stock_recommendations()[stock[0]] != nil
+					intersections << stock[0]
+				end
+				j += 1
+			end
+		end
+		i += 1
+	end
+	intersections
+end
 
-extract_stock_recommendations(test)
+articles = get_article_links()
 
-#get_article_links()
-#puts @links
+articles.each do |article|
+	extract_stock_recommendations(article)
+end
+
+p find_intersections(articles)
