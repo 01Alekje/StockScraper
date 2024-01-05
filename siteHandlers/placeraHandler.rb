@@ -8,9 +8,13 @@ class PlaceraHandler < SiteHandler
         document.css('div.cq-puff div').each do |line|
             keyword = line.css('span.arrowRight')
             if keyword.text.include?("Köp")
-                add_article(Article.new(('https://www.placera.se' + line.css('h1 a')[0]['href']), (line.css('h1 a').children.first.text)))
+                if line.css('span.articleDate.XSText').children.first != nil
+                    add_article(Article.new('https://www.placera.se' + line.css('h1 a')[0]['href'], line.css('h1 a').children.first.text, line.css('span.articleDate.XSText').children.first.text))
+                end
             elsif line.css('h1 a').children.first != nil and line.css('h1 a').children.first.text.downcase.include?("köp")
-                add_article(Article.new(('https://www.placera.se' + line.css('h1 a')[0]['href']), (line.css('h1 a').children.first.text)))
+                if line.css('span.articleDate.XSText').children.first != nil
+                    add_article(Article.new('https://www.placera.se' + line.css('h1 a')[0]['href'], line.css('h1 a').children.first.text, line.css('span.articleDate.XSText').children.first.text))
+                end
             end
         end
     end

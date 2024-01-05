@@ -34,10 +34,11 @@ end
 articles = @placeraHandler.get_articles()
 puts articles
 
-#articles.each do |article|
-#	@placeraHandler.extract_stock_recommendations(article)
-#	p article.get_name()
-#	p article.get_stock_recommendations()
-#end
+articles.each do |article|
+	@placeraHandler.extract_stock_recommendations(article)
+	p article.get_name()
+	p article.get_date()
+	#p article.get_stock_recommendations()
+end
 
 #p find_intersections(articles)

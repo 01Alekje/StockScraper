@@ -1,9 +1,9 @@
 class Article
-    def initialize (url, name)
+    def initialize (url, name, date=nil)
         @url = url
         @name = name
         @stocks = {}
-        @date = nil
+        @date = date
     end
 
     def get_url ()
