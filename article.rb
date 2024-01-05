@@ -3,14 +3,23 @@ class Article
         @url = url
         @name = name
         @stocks = {}
+        @date = nil
     end
 
-    def getUrl ()
+    def get_url ()
         @url
     end
 
-    def getName ()
+    def get_name ()
         @name
+    end
+
+    def get_date ()
+        @date
+    end
+
+    def set_date (date)
+        @date = date
     end
 
     def get_stock_recommendations ()
