@@ -1,10 +1,9 @@
 require 'httparty'
 require 'nokogiri'
-require_relative 'article'
-require_relative 'siteHandlers/placeraHandler'
+require_relative 'siteHandlers/placera/placeraHandler'
 
 # Initializing data
-@placeraHandler = PlaceraHandler.new()
+@ph = PlaceraHandler.new()
 
 def fetch_url_body (url)
 	response = HTTParty.get(url)
@@ -30,15 +29,6 @@ def find_intersections (articles)
 	intersections
 end
 
-@placeraHandler.find_articles()
-articles = @placeraHandler.get_articles()
-puts articles
-
-articles.each do |article|
-	@placeraHandler.extract_stock_recommendations(article)
-	p article.get_name()
-	p article.get_date()
-	#p article.get_stock_recommendations()
-end
-
-#p find_intersections(articles)
+@ph.find_articles()
+@ph.get_stock_recommendations()
+@ph.display_articles()
