@@ -1,3 +1,6 @@
+require 'httparty'
+require 'nokogiri'
+
 class SiteHandler
     def initialize ()
         @articles = []

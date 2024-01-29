@@ -1,9 +1,11 @@
 require 'httparty'
 require 'nokogiri'
 require_relative 'handlers/placeraHandler'
+require_relative 'handlers/privAffHandler'
 
 # Initializing data
 @ph = PlaceraHandler.new()
+@pa = PrivAffHandler.new()
 
 def fetch_url_body (url)
 	response = HTTParty.get(url)
@@ -29,6 +31,11 @@ def find_intersections (articles)
 	intersections
 end
 
-@ph.find_articles()
-@ph.get_stock_recommendations()
-@ph.display_articles()
+#@ph.find_articles()
+#@ph.get_stock_recommendations()
+#@ph.display_articles()
+
+@pa.find_articles()
+@pa.get_articles().each do |article|
+	puts article.get_name()
+end

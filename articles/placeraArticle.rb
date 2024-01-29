@@ -1,7 +1,7 @@
 require_relative './siteArticle'
 
 class PlaceraArticle < SiteArticle
-    def initialize (url, name)
+    def initialize (url, name, date=nil)
         super(url, name)
     end
 

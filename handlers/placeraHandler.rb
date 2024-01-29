@@ -1,5 +1,3 @@
-require 'httparty'
-require 'nokogiri'
 require_relative '../articles/placeraArticle'
 require_relative './siteHandler'
 
@@ -10,7 +8,6 @@ class PlaceraHandler < SiteHandler
 
     # scans for relevant articles
     def find_articles ()
-        articles = []
         document = fetch_url_body("https://www.placera.se/placera/forstasidan.html")
         document.css('div.cq-puff div').each do |line|
             keyword = line.css('span.arrowRight')
