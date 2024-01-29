@@ -1,6 +1,6 @@
 require 'httparty'
 require 'nokogiri'
-require_relative 'siteHandlers/placera/placeraHandler'
+require_relative 'handlers/placeraHandler'
 
 # Initializing data
 @ph = PlaceraHandler.new()

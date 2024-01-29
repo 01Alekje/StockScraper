@@ -1,6 +1,6 @@
 require 'httparty'
 require 'nokogiri'
-require_relative 'placeraArticle'
+require_relative '../articles/placeraArticle'
 #require_relative '../../main'
 
 class PlaceraHandler

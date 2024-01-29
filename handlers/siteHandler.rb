@@ -1,5 +1,3 @@
-require_relative '../article'
-
 class SiteHandler
     def initialize ()
         @articles = []
