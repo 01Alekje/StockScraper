@@ -1,16 +1,11 @@
 require 'httparty'
 require 'nokogiri'
 require_relative '../articles/placeraArticle'
-#require_relative '../../main'
+require_relative './siteHandler'
 
-class PlaceraHandler
+class PlaceraHandler < SiteHandler
     def initialize ()
-        @articles = []
-    end
-
-    def fetch_url_body (url)
-        response = HTTParty.get(url)
-        Nokogiri::HTML(response.body)
+        super()
     end
 
     # scans for relevant articles
@@ -26,25 +21,6 @@ class PlaceraHandler
                 tmp = PlaceraArticle.new(('https://www.placera.se' + line.css('h1 a')[0]['href']), (line.css('h1 a').children.first.text))
                 @articles << tmp
             end
-        end
-    end
-
-    def get_articles ()
-        @articles
-    end
-
-    def get_stock_recommendations ()
-        @articles.each do |article|
-            article.extract_stock_recommendations()
-        end
-    end
-
-    def display_articles ()
-        @articles.each do |article|
-            puts article.get_name()
-            puts article.get_date()
-            puts article.get_stock_recommendations()
-            puts "\n"
         end
     end
 end
